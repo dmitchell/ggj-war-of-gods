@@ -8,7 +8,7 @@ cloak.configure({
 });
 
 // get server url not localhost
-cloak.run('http://localhost:8090');
+cloak.run('http://' + (window.location.host || "localhost") + ':8090');
 
 // map.addEventListener('submit', function(e) {
 //   cloak.message('chat', msg);
