@@ -1,0 +1,45 @@
+<html>
+<head>
+<script src="util.js"></script>
+<script src="game.js"></script>
+<script>
+  utils = new Util();
+  var runTrial = function(n) {
+    var wins = 0;
+    var turns = 0;
+    var win_turns = 0;
+    var loss_turns = 0;
+    var win_health = 0;
+
+    utils.from_to(0, n-1, function() {
+      g = new Game();
+      var running = true;
+      while (running) {
+        running = g.step();
+      }
+      turns += g.turns();
+      if (g.win()) {
+        wins += 1;
+        win_turns += g.turns();
+        win_health += g.hp();
+      }
+      else {
+        loss_turns += g.turns();
+      }
+    });
+
+    console.log('win rate: ' + (wins * 1.0/n));
+    console.log('avg actions: ' + (turns * 1.0/n));
+    console.log('avg actions (win): ' + (win_turns * 1.0/wins));
+    console.log('avg actions (loss): ' + (loss_turns * 1.0/(n - wins)));
+    console.log('avg health (win): ' + (win_health * 1.0/wins));
+    return "done.";
+  };
+</script>
+</head>
+
+<body>
+  To run trials, open up the console and execute <code>runTrials(n)</code>.<br />
+  Parameters/variables can be changed in <code>game.js</code>.
+</body>
+</html>
