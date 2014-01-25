@@ -1,10 +1,8 @@
-/* global cloak */
-var log = document.querySelector('#log');
-
 cloak.configure({
   messages: {
     init: function(msg) {
-	log.innerText = "init: " + msg;
+	console.log("init: " + msg);
+	$("#log").text("init: " + msg);
     }
   }
 });

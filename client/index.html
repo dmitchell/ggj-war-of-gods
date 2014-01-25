@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>War Of Gods</title>
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="screen.css">
   </head>
   <body>
     <script src="lib/underscore-min.js"></script>
@@ -20,8 +19,10 @@
     </div>
 
     <script type="text/javascript">
-      $(document).ready(function() {
+      $(function() {
+          $("#log").text("ready");
           $("#init").click(function() {
+              $("#log").text("click");
                cloak.message('init', 'me');
           });
       });
