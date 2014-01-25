@@ -4,6 +4,7 @@ Crafty.c('Actor', {
   }
 });
 
+// adapted from https://github.com/sorenbs/MoveTo
 Crafty.c('MoveTo', {
   _isMoving: false,
 
@@ -43,8 +44,7 @@ Crafty.c('MoveTo', {
       return;
     }
 
-    // target (almost) reached - jump the last part.
-    // We could be more fancy (circular check instead of square), but don't want to pay the sqrt penalty each frame.
+    // target (almost) reached - jump the last part
     if (Math.abs(this._target.x - (this.x + this.w / 2)) < this._speed && Math.abs(this._target.y - (this.y + this.h / 2)) < this._speed) {
       var prev_pos = {
         x: (this.x + this.w / 2),
@@ -60,8 +60,7 @@ Crafty.c('MoveTo', {
       return;
     }
 
-    // Pixels to move are calculated from location and target every frame to handle the case when something else (IE, collision detection logic) changes our position.
-    // Some cleaver optimization could probably eliminate the sqrt cost...
+    // movement calculated from location and target at every frame
     var dx = this._target.x - (this.x + this.w / 2),
         dy = this._target.y - (this.y + this.h / 2);
     var oldX = (this.x + this.w / 2),
@@ -69,7 +68,7 @@ Crafty.c('MoveTo', {
     var movX = (dx * this._speed) / (Math.sqrt(dx * dx + dy * dy)),
         movY = (dy * this._speed) / (Math.sqrt(dx * dx + dy * dy));
 
-    // Moved triggered twice to allow for better collision logic (like moving along diagonal walls)
+    // move triggered twice to allow for better collision logic
     this.x += movX;
     this.trigger('Moved', { x: oldX, y: this.y });
     this.y += movY;
