@@ -1,6 +1,15 @@
 Crafty.c('Actor', {
   init: function() {
+	health = 100;
+  
     this.requires('2D, Canvas');
+  },
+  
+  heal: function(amount) {
+	health -= amount;
+	if(health > 100){
+		health = 100;
+	}
   }
 });
 
