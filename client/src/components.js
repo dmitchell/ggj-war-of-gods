@@ -7,7 +7,7 @@ Crafty.c('Actor', {
 Crafty.c("MoveTo", {
   _speed: 2,
 
-  _onmousemove: function (e) {
+  _onmousedown: function (e) {
     if (this.disregardMouseInput) {
       return;
     }
@@ -70,6 +70,6 @@ Crafty.c("MoveTo", {
     this.requires("Mouse");
     this.oldDirection = { x: 0, y: 0 };
 
-    Crafty.addEvent(this, Crafty.stage.elem, "mousemove", this._onmousemove);
+    Crafty.addEvent(this, Crafty.stage.elem, "mousedown", this._onmousedown);
   }
 });
