@@ -1,8 +1,22 @@
+var role;
+
+function logResponse(response) {
+    console.log(response);
+    $("#log").prepend(response + "<br/>");    
+}
+
 cloak.configure({
   messages: {
     init: function(msg) {
-	console.log("init: " + msg);
-	$("#log").text("init: " + msg);
+	console.log("sending init: " + msg);
+	logResponse("init: " + msg);
+    },
+    init_response: function(someone_joined) {
+	console.log(someone_joined);
+	logResponse(someone_joined);
+    },
+    role: function(provided_role) {
+	role = provided_role;
     }
   }
 });
