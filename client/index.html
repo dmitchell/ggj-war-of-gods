@@ -14,7 +14,7 @@
 
     <button id="init" type="button">init</button>
     <button id="world_state" type="button">world</button>
-    <button id="start" type="button">start</button>
+    <button id="move" type="button">move</button>
 
     <div id="log">
     </div>
@@ -23,8 +23,21 @@
       $(function() {
           $("#log").text("ready");
           $("#init").click(function() {
-              $("#log").text("click");
                cloak.message('init', '');
+          });
+          $("#world_state").click(function() {
+               cloak.message('world_state_submission', 
+                   {
+                       monster_guid: {type: 'monster', god: 'red', location: [22, 44], hp: 9},
+                       treasure_guid: {type: 'treasure', god: 'blue', location: [99, 2], points: 2}
+                   });
+          });
+          $("#move").click(function() {
+               cloak.message('move', 
+                   {
+                       hero: [9, 4],
+                       monster_guid: [22, 44]
+                   });
           });
       });
     </script>
