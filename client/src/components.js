@@ -4,26 +4,41 @@ Crafty.c('Actor', {
   }
 });
 
-Crafty.c("MoveTo", {
+Crafty.c('MoveTo', {
+  _isMoving: false,
+
   _speed: 2,
 
-  _onmousedown: function (e) {
+  _onmousedown: function(e) {
     if (this.disregardMouseInput) {
       return;
     }
-    // clear any existing EnterFrame handlers
-    this._stopMoving();
 
+    this._isMoving = true;
     this._target = { x: e.realX, y: e.realY };
-    this.bind("EnterFrame", this._enterFrame);
+    this.bind('EnterFrame', this._enterFrame);
   },
 
-  _stopMoving: function () {
+  _onmouseup: function(e) {
+    this._isMoving = false;
+    this._stopMoving();
+  },
+
+  _onmousemove: function(e) {
+    if (this._isMoving) {
+      this._stopMoving();
+      this._isMoving = true;
+      this._target = { x: e.realX, y: e.realY };
+      this.bind('EnterFrame', this._enterFrame);
+    }
+  },
+
+  _stopMoving: function() {
     this._target = undefined;
-    this.unbind("EnterFrame", this._enterFrame);
+    this.unbind('EnterFrame', this._enterFrame);
   },
 
-  _enterFrame: function () {
+  _enterFrame: function() {
     if (this.disableControls || !this._target) {
       return;
     }
@@ -61,15 +76,17 @@ Crafty.c("MoveTo", {
     this.trigger('Moved', { x: this.x, y: oldY });
   },
 
-  moveTo: function (speed) {
+  moveTo: function(speed) {
     this._speed = speed;
     return this;
   },
 
-  init: function () {
-    this.requires("Mouse");
+  init: function() {
+    this.requires('Mouse');
     this.oldDirection = { x: 0, y: 0 };
 
-    Crafty.addEvent(this, Crafty.stage.elem, "mousedown", this._onmousedown);
+    Crafty.addEvent(this, Crafty.stage.elem, 'mousedown', this._onmousedown);
+    Crafty.addEvent(this, Crafty.stage.elem, 'mouseup', this._onmouseup);
+    Crafty.addEvent(this, Crafty.stage.elem, 'mousemove', this._onmousemove);
   }
 });
