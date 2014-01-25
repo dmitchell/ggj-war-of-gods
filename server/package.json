@@ -1,0 +1,6 @@
+{
+  "name": "WarOfGods",
+  "dependencies": {
+    "cloak": "~0.2.1"
+  }
+}

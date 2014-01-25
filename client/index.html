@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>War Of Gods</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="screen.css">
+  </head>
+  <body>
+    <script src="lib/underscore-min.js"></script>
+    <script src="lib/socket.io.min.js"></script>
+    <script src="lib/cloak-client.min.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="wog-cloak-client.js"></script>
+    <button id="init" type="button">init</button>
+    <button id="world_state" type="button">world</button>
+    <button id="start" type="button">start</button>
+
+    <div id="log">
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+          $("#init").click(function() {
+               cloak.message('init', 'me');
+          });
+      });
+    </script>
+  </body>
+</html>
