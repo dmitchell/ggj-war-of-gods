@@ -458,8 +458,8 @@ Crafty.c("Key", {
 
 Crafty.c("Exit", {
   init: function() {
-    this.requires('2D, Canvas, Collision, key_pic');
-    this.attr({z: 0, w:10, h:10})
+    this.requires('2D, Canvas, Collision, exit');
+    this.attr({z: 0, w:62, h:51})
         .collision().onHit("Actor", function(e){
           if(hero.hasKey() && this.active){
 			Crafty.e("2D, Canvas, Text").attr({x: 400, y: 280 }).text("You win!")
