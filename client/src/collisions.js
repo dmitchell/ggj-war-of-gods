@@ -135,20 +135,20 @@ Crafty.c("Dungeon", {
 	buildDungeon: function(jsonDungeon) {
     // outer border
 		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: -13, w: 1200, h: 32});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -13, y: -10, w: 30, h: 720});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: 617, w: 1200, h: 32});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: 1007, y:-10, w: 30, h: 720});
+      .attr({x: -10, y: -13, w: 1200, h: 32});
+    wall = Crafty.e('Wall, Color')
+      .attr({x: -13, y: -10, w: 30, h: 720});
+    wall = Crafty.e('Wall, Color')
+      .attr({x: -10, y: 617, w: 1200, h: 32});
+    wall = Crafty.e('Wall, Color')
+      .attr({x: 1007, y:-10, w: 30, h: 720});
 	
 		for(var i = 0; i < 5; i++){
 			for(var j = 0; j < 5; j++){
 				var room = jsonDungeon.rooms[i][j];
 				
         // intersections
-				if(i > 0 && j > 0){
+        if(i > 0 && j > 0){
           wall = Crafty.e('Wall, Color')
             .attr({x: i*204 - 70, y: j*126 - 13, w: 144, h: 32});
           wall = Crafty.e('Wall, Color')
@@ -156,23 +156,45 @@ Crafty.c("Dungeon", {
         }
 				
         // walls over doorspaces
-				if(room.leftDoor == false && i > 0){
-					wall = Crafty.e('Wall, Color')
-						.attr({x: i*204 - 70, y: j*126 + 53, w: 30, h: 60});
+        if(room.leftDoor == false && i > 0){
+          wall = Crafty.e('Wall, Color')
+            .attr({x: i*204 - 13, y: (j+1)*126 - 90, w: 30, h: 60});
+        }
+        if(room.upDoor == false && j > 0){
+         wall = Crafty.e('Wall, Color')
+           .attr({x: (i+1)*204 - 130, y: j*126 - 13, w: 60, h: 32});
+        }
+				
+				if(room.weakMonster || room.strongMonster){
+					Crafty.e('Monster, ' + 
+						( role==='hero'? 'gray_monster_pic' : 'blue_monster_pic'))
+						.attr({x: i*200 + 100, y: j*120 + 60});
+				}
+				if(room.potion){
+					Crafty.e('Treasure')
+						.attr({x: i*200 + 100, y: j*120 + 60});
+				}
+				if(room.key){
+					Crafty.e('Key')
+						.attr({x: i*200 + 100, y: j*120 + 60});
+				}
+				if(room.exit){
+					Crafty.e('Exit')
+						.attr({x: i*200 + 100, y: j*120 + 60});
 				}
 			}
 
-      // edge walls (bottom-right)
-			// if(i > 0){
-			// 	wall = Crafty.e('Wall, Color')
-			// 		.attr({x: -50, y: i*120 - 10, w: 100, h: 13});
-			// 	wall = Crafty.e('Wall, Color')
-			// 		.attr({x: 950, y: i*120 - 10, w: 100, h: 13});
-			// 	wall = Crafty.e('Wall, Color')
-			// 		.attr({x: i*200 - 10, y: -30, w: 13, h: 60});
-			// 	wall = Crafty.e('Wall, Color')
-			// 		.attr({x: i*200 - 10, y: 570, w: 13, h: 60});
-			// }
+      // edge walls
+      if(i > 0){
+        wall = Crafty.e('Wall, Color')
+          .attr({x: -26, y: i*126 - 13, w: 100, h: 32});
+        wall = Crafty.e('Wall, Color')
+          .attr({x: 950, y: i*126 - 13, w: 100, h: 32});
+        wall = Crafty.e('Wall, Color')
+          .attr({x: i*204 - 13, y: -24, w: 30, h: 60});
+        wall = Crafty.e('Wall, Color')
+          .attr({x: i*204 - 13, y: 600, w: 30, h: 60});
+      }
 		}
 	},
 	
@@ -254,6 +276,17 @@ Crafty.c("Dungeon", {
 			room.strongmonster = true;
 		}
 		
+			var i = Math.floor(Math.random()*5);
+			var j = Math.floor(Math.random()*5);
+			var room = this.rooms[i][j];
+			while(room.item || (i > 0 && i < 4) || (j > 0 && j < 4)){
+				i = Math.floor(Math.random()*5);
+				j = Math.floor(Math.random()*5);
+				var room = this.rooms[i][j];
+			}
+			room.item = true;
+			room.exit = true;
+		
 		for(var k = 0; k < 5; k++){
 			var i = Math.floor(Math.random()*5);
 			var j = Math.floor(Math.random()*5);
@@ -282,18 +315,6 @@ Crafty.c("Dungeon", {
 			
 			room.item = true;
 			room.key = true;
-		}
-		
-		for(var k = 0; k < 5; k++){
-			var i = Math.floor(Math.random()*5);
-			var j = Math.floor(Math.random()*5);
-			var room = this.rooms[i][j];
-			
-			if(!room.item){
-				room.item = true;
-				room.exit = true;
-				var room = this.rooms[i][j];
-			}
 		}
 
 		
@@ -340,6 +361,8 @@ Crafty.c("Dungeon", {
 			jsonDungeon.rooms.push(row);
 		}
 		
+		console.log(jsonDungeon);
+		
 		return jsonDungeon;
 	}
 });
@@ -365,8 +388,8 @@ Crafty.c("Room", {
 		this.attached = false;
 		
 		this.monster = false;
-		this.weakMonster = false;
-		this.strongMonster = false;
+		this.weakmonster = false;
+		this.strongmonster = false;
 		
 		this.item = false;
 		this.potion = false;
@@ -404,12 +427,37 @@ Crafty.c("Bar", {
 Crafty.c("Treasure", {
   init: function() {
     this.requires('2D, Canvas, Collision, potion_pic');
-    this.attr({z: 0, w: 20, h: 20})
+    this.attr({z: 0})
         .collision().onHit("Actor", function(e){
           hero.heal(10);
           this.destroy();
 	  Crafty.audio.play('potion');
         });
+  }
+});
+
+Crafty.c("Key", {
+  init: function() {
+    this.requires('2D, Canvas, Collision, key_pic');
+    this.attr({z: 0})
+        .collision().onHit("Actor", function(e){
+          hero.getKey();
+          this.destroy();
+        });
+  }
+});
+
+Crafty.c("Exit", {
+  init: function() {
+    this.requires('2D, Canvas, Collision, key_pic');
+    this.attr({z: 0, w:10, h:10})
+        .collision().onHit("Actor", function(e){
+          if(hero.hasKey() && this.active){
+			Crafty.e("2D, Canvas, Text").attr({x: 400, y: 280 }).text("You win!")
+				.textColor('#FFFFFF"').textFont({size:'64px'});
+		  }
+        });
+	this.active = true;
   }
 });
 
@@ -445,7 +493,7 @@ Crafty.c("Monster", {
   init: function() {
     this.requires('2D, Canvas, Collision');
 
-    this.attr({z: 0, w: 40, h: 40})
+    this.attr({z: 0})
         .collision().onHit("Actor", function(e){
 			if(this.active){
 				hero.damage(20);
