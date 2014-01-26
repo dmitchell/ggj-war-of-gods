@@ -1,0 +1,19 @@
+body {
+  background-image: url('assets/frame.png'), url('http://i.imgur.com/0BzTC8M.png');
+  background-repeat: no-repeat no-repeat;
+  background-position: top center, top center;
+  text-align: center;
+}
+
+#cr-stage {
+  margin: auto;
+  display: block;
+  margin-top: 32px;
+}
+
+#instructions {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+}
