@@ -29,13 +29,5 @@ Game = {
                      .attr({x: 400, y: 400});
 	monster6 = Crafty.e('Monster, Color, Collision')
                      .attr({x: 200, y: 400});*/
-	
-<<<<<<< HEAD
-	dungeon = Crafty.e("Dungeon");
-	jsonDungeon = dungeon.generateDungeon();
-	
-	dungeon.buildDungeon(jsonDungeon);
-=======
->>>>>>> 5ee3df7a1c53fa106fed4382dde1a6dfd1326798
   }
 };
