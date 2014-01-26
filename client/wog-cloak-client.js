@@ -37,6 +37,7 @@ cloak.configure({
     },
     move_receipt: function(move) {
 	// update state w/ the new info in move
+	update_locations(move);
     },
     combat_receipt: function(state_update) {
 	// update state w/ the new info (primarily hp)

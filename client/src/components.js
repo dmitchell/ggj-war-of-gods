@@ -8,7 +8,7 @@ Crafty.sprite("assets//aJEpash.png",
 	       helm_pic: [109, 148, 137-109, 33]
 	      });
 Crafty.c('Actor', {
-  init: function() {
+  init: function(id) {
 	health = 100;
   
     this.requires('2D, Canvas, Collision, hero_pic');
