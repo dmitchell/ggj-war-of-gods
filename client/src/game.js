@@ -31,8 +31,8 @@ Game = {
     hero = Crafty.e('Actor, DOM' + (role==='hero'?', HasFOV, MoveTo':''))
                  .attr({x: 500, y: 300, z: 2});
 
-    pingLayer = Crafty.e('PingLayer');
-
-    bluePowers = Crafty.e('GodPowers');
+    // pingLayer = Crafty.e('PingLayer');
+    // bluePowers = Crafty.e('GodPowers');
+    // redPowers = Crafty.e('GodPowers');
   }
 };

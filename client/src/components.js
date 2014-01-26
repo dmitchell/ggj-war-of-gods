@@ -184,34 +184,34 @@ Crafty.c('Mask', {
   }
 });
 
-Crafty.c('GodPowers', {
-  init: function() {
-    this.requires('Mouse');
-    // TODO: check for god status
-    Crafty.addEvent(this, Crafty.stage.elem, 'mousedown', this.pingLocation);
-  },
+// Crafty.c('GodPowers', {
+//   init: function() {
+//     this.requires('Mouse');
+//     // TODO: check for god status
+//     Crafty.addEvent(this, Crafty.stage.elem, 'mousedown', this.pingLocation);
+//   },
 
-  pingLocation: function(e) {
-    if (this.disregardMouseInput) {
-      return;
-    }
+//   pingLocation: function(e) {
+//     if (this.disregardMouseInput) {
+//       return;
+//     }
 
-    console.log('ping!');
-    ping = Crafty.e('Ping')
-                 .color('rgb(255, 255, 255)')
-                 .attr({alpha: 1.0, x: e.realX, y: e.realY, w: 0, h: 0, z: 1000, origin: 'center'})
-                 .css('border-radius','50%')
-                 .tween({alpha: 0.0, w: 50, h: 50, x: e.realX - 25, y: e.realY - 25}, 350);
-  }
-});
+//     console.log('ping!');
+//     ping = Crafty.e('Ping')
+//                  .color('rgb(255, 255, 255)')
+//                  .attr({alpha: 1.0, x: e.realX, y: e.realY, w: 0, h: 0, z: 1000, origin: 'center'})
+//                  .css('border-radius','50%')
+//                  .tween({alpha: 0.0, w: 50, h: 50, x: e.realX - 25, y: e.realY - 25}, 350);
+//   }
+// });
 
-Crafty.c('Ping', {
-  init: function() {
-    this.requires('2D, Canvas, Color, DOM, Shape, Tween');
-    this.bind('TweenEnd', this.cleanup);
-  },
+// Crafty.c('Ping', {
+//   init: function() {
+//     this.requires('2D, Canvas, Color, DOM, Shape, Tween');
+//     this.bind('TweenEnd', this.cleanup);
+//   },
 
-  cleanup: function() {
-    this.destroy();
-  }
-});
+//   cleanup: function() {
+//     this.destroy();
+//   }
+// });
