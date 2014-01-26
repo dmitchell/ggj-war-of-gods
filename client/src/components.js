@@ -108,16 +108,21 @@ Crafty.c('MoveTo', {
     this.requires('Mouse, Collision');
     this.oldDirection = { x: 0, y: 0 };
 
-    Crafty.addEvent(this, Crafty.stage.elem, 'mousedown', this._onmousedown);
-    Crafty.addEvent(this, Crafty.stage.elem, 'mouseup', this._onmouseup);
-    Crafty.addEvent(this, Crafty.stage.elem, 'mousemove', this._onmousemove);
+    if (role === 'blue') {
+      Crafty.addEvent(this, Crafty.stage.elem, 'mousedown', this._onmousedown);
+      Crafty.addEvent(this, Crafty.stage.elem, 'mouseup', this._onmouseup);
+      Crafty.addEvent(this, Crafty.stage.elem, 'mousemove', this._onmousemove);
+    }
   }
 });
 
 Crafty.c('HasFOV', {
   init: function() {
-    var fov = Crafty.e('Mask')
-                    .attr({x: 0, y: 0, z: 999, w: 1024, h: 636});
+    if (role === 'blue') {
+      console.log('mask created');
+      this._fov = Crafty.e('Mask')
+                        .attr({x: 0, y: 0, z: 999, w: 1024, h: 636});
+    }
   }
 });
 
@@ -142,5 +147,48 @@ Crafty.c('Mask', {
     this.requires('2D, Canvas, MoveTo');
     this.ready = true;
     this.bind('Draw', this.drawMask);
+  }
+});
+
+Crafty.c('GodPowers', {
+  init: function() {
+    this._pingLayer = Crafty.e('Ping')
+                            .attr({x: 1024, y: 636, z: 1000});
+
+    this.requires('Mouse');
+    if (role === 'hero' || role === 'red') {
+      Crafty.addEvent(this, Crafty.stage.elem, 'mousedown', this.pingLocation);
+    }
+  },
+
+  pingLocation: function(e) {
+    if (this.disregardMouseInput) {
+      return;
+    }
+
+    console.log('ping!');
+    this._pingLayer.drawPing(e.realX, e.realY);
+  }
+});
+
+Crafty.c('Ping', {
+  init: function() {
+    this.requires('2D, Canvas, Color');
+    this._pingCanvas = document.createElement('canvas');
+    this._pingCtx = this._pingCanvas.getContext('2d');
+    this.bind('Draw', this.drawCanvas);
+  },
+
+  drawCanvas: function() {
+    this._pingCanvas.width = '1024';
+    this._pingCanvas.height = '636';
+    Crafty.canvas.context.drawImage(this._pingCanvas, 0, 0);
+  },
+
+  drawPing: function(pingX, pingY) {
+    this._pingCtx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+    this._pingCtx.arc(pingX, pingY, 100, 0, 2 * Math.PI);
+    this._pingCtx.fill();
+    Crafty.canvas.context.drawImage(this._pingCanvas, 0, 0);
   }
 });

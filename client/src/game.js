@@ -8,34 +8,35 @@ Game = {
                  .color('rgb(255, 0, 0)')
                  .attr({x: 500, y: 300, z: 2, w: 40, h: 40});
 
-    /*treasure1 = Crafty.e('Treasure, Color, Collision')
-                     .attr({x: 100, y: 100});
-    treasure2 = Crafty.e('Treasure, Color, Collision')
-                     .attr({x: 100, y: 200});
-    treasure3 = Crafty.e('Treasure, Color, Collision')
-                     .attr({x: 200, y: 200});
-    treasure4 = Crafty.e('Treasure, Color, Collision')
-                     .attr({x: 200, y: 100});
+    pingLayer = Crafty.e('PingLayer');
 
-	monster1 = Crafty.e('Monster, Color, Collision')
-                     .attr({x: 300, y: 300});
-	monster2 = Crafty.e('Monster, Color, Collision')
-                     .attr({x: 400, y: 300});
-	monster3 = Crafty.e('Monster, Color, Collision')
-                     .attr({x: 200, y: 300});
-	monster4 = Crafty.e('Monster, Color, Collision')
-                     .attr({x: 300, y: 400});
-	monster5 = Crafty.e('Monster, Color, Collision')
-                     .attr({x: 400, y: 400});
-	monster6 = Crafty.e('Monster, Color, Collision')
-                     .attr({x: 200, y: 400});*/
+    bluePowers = Crafty.e('GodPowers');
+
+ //    treasure1 = Crafty.e('Treasure, Color, Collision')
+ //                     .attr({x: 100, y: 100});
+ //    treasure2 = Crafty.e('Treasure, Color, Collision')
+ //                     .attr({x: 100, y: 200});
+ //    treasure3 = Crafty.e('Treasure, Color, Collision')
+ //                     .attr({x: 200, y: 200});
+ //    treasure4 = Crafty.e('Treasure, Color, Collision')
+ //                     .attr({x: 200, y: 100});
+
+	// monster1 = Crafty.e('Monster, Color, Collision')
+ //                     .attr({x: 300, y: 300});
+	// monster2 = Crafty.e('Monster, Color, Collision')
+ //                     .attr({x: 400, y: 300});
+	// monster3 = Crafty.e('Monster, Color, Collision')
+ //                     .attr({x: 200, y: 300});
+	// monster4 = Crafty.e('Monster, Color, Collision')
+ //                     .attr({x: 300, y: 400});
+	// monster5 = Crafty.e('Monster, Color, Collision')
+ //                     .attr({x: 400, y: 400});
+	// monster6 = Crafty.e('Monster, Color, Collision')
+ //                     .attr({x: 200, y: 400});
 	
-<<<<<<< HEAD
 	dungeon = Crafty.e("Dungeon");
 	jsonDungeon = dungeon.generateDungeon();
 	
 	dungeon.buildDungeon(jsonDungeon);
-=======
->>>>>>> 5ee3df7a1c53fa106fed4382dde1a6dfd1326798
   }
 };
