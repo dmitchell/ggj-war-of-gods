@@ -156,20 +156,29 @@ Crafty.c("Dungeon", {
         }
 				
         // walls over doorspaces
-        if(room.leftDoor == false && i > 0){
+        if(room.leftDoor == false){
           wall = Crafty.e('Wall, Color')
             .attr({x: i*204 - 13, y: (j+1)*126 - 90, w: 30, h: 60});
         }
-        if(room.upDoor == false && j > 0){
+        else {
+          door = Crafty.e('2D, Canvas, horiz_door')
+            .attr({x: i*204 - 13, y: (j+1)*126 - 96});
+        }
+
+        if(room.upDoor == false){
          wall = Crafty.e('Wall, Color')
            .attr({x: (i+1)*204 - 130, y: j*126 - 13, w: 60, h: 32});
         }
-				
-				if(room.weakMonster || room.strongMonster){
-					Crafty.e('Monster, ' + 
-						( role==='hero'? 'gray_monster_pic' : 'blue_monster_pic'))
-						.attr({x: i*200 + 100, y: j*120 + 60});
-				}
+        else {
+          door = Crafty.e('2D, Canvas, vert_door')
+            .attr({x: (i+1)*204 - 136, y: j*126 - 13});
+        }
+        
+        if(room.weakMonster || room.strongMonster){
+          Crafty.e('Monster, ' + 
+            ( role==='hero'? 'gray_monster_pic' : 'blue_monster_pic'))
+            .attr({x: i*200 + 100, y: j*120 + 60, z: 2});
+        }
 				if(room.potion){
 					Crafty.e('Treasure')
 						.attr({x: i*200 + 100, y: j*120 + 60});

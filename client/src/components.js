@@ -5,7 +5,9 @@ Crafty.sprite("assets//aJEpash.png",
          gray_monster_pic: [292, 121, 325-292, 45],
          key_pic: [75, 148, 106-75, 31],
          potion_pic: [53, 152, 72-53, 31],
-         helm_pic: [109, 148, 137-109, 33]
+         helm_pic: [109, 148, 137-109, 33],
+         horiz_door: [0, 152, 30, 72],
+         vert_door: [0, 121, 74, 30]
         });
 
 Crafty.audio.add({
