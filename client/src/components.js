@@ -1,12 +1,12 @@
 Crafty.sprite("assets//aJEpash.png",
-	      {hero_pic:[200,121,18,32],
-	       blue_monster_pic: [222, 121, 33, 45],
-	       red_monster_pic: [257, 121, 290-257, 45],
-	       gray_monster_pic: [292, 121, 325-292, 45],
-	       key_pic: [75, 148, 106-75, 31],
-	       potion_pic: [53, 152, 72-53, 31],
-	       helm_pic: [109, 148, 137-109, 33]
-	      });
+        {hero_pic:[200,121,18,32],
+         blue_monster_pic: [222, 121, 33, 45],
+         red_monster_pic: [257, 121, 290-257, 45],
+         gray_monster_pic: [292, 121, 325-292, 45],
+         key_pic: [75, 148, 106-75, 31],
+         potion_pic: [53, 152, 72-53, 31],
+         helm_pic: [109, 148, 137-109, 33]
+        });
 Crafty.c('Actor', {
   init: function() {
 	this.health = 100;
@@ -75,7 +75,7 @@ Crafty.c('MoveTo', {
   },
 
   _enterFrame: function() {
-	this.requires('Collision');
+  this.requires('Collision');
   
     if (this.disableControls || !this._target) {
       return;
@@ -108,14 +108,14 @@ Crafty.c('MoveTo', {
     // move triggered twice to allow for better collision logic
     this.x += movX;
     this.trigger('Moved', { x: oldX, y: this.y });
-	if(this.hit("Wall") != false){
-		this.x -= movX;
-	}
+  if(this.hit("Wall") != false){
+    this.x -= movX;
+  }
     this.y += movY;
     this.trigger('Moved', { x: this.x, y: oldY });
-	if(this.hit("Wall") != false){
-		this.y -= movY;
-	}
+  if(this.hit("Wall") != false){
+    this.y -= movY;
+  }
   },
 
   moveTo: function(speed) {
@@ -135,8 +135,9 @@ Crafty.c('MoveTo', {
 
 Crafty.c('HasFOV', {
   init: function() {
-    var fov = Crafty.e('Mask')
-                    .attr({x: 0, y: 0, z: 999, w: 1024, h: 636});
+    console.log('mask created');
+    this._fov = Crafty.e('Mask')
+                      .attr({x: 0, y: 0, z: 999, w: 1024, h: 636});
   }
 });
 
@@ -161,5 +162,37 @@ Crafty.c('Mask', {
     this.requires('2D, Canvas, MoveTo');
     this.ready = true;
     this.bind('Draw', this.drawMask);
+  }
+});
+
+Crafty.c('GodPowers', {
+  init: function() {
+    this.requires('Mouse');
+    // TODO: check for god status
+    Crafty.addEvent(this, Crafty.stage.elem, 'mousedown', this.pingLocation);
+  },
+
+  pingLocation: function(e) {
+    if (this.disregardMouseInput) {
+      return;
+    }
+
+    console.log('ping!');
+    ping = Crafty.e('Ping')
+                 .color('rgb(255, 255, 255)')
+                 .attr({alpha: 1.0, x: e.realX, y: e.realY, w: 0, h: 0, z: 1000, origin: 'center'})
+                 .css('border-radius','50%')
+                 .tween({alpha: 0.0, w: 50, h: 50, x: e.realX - 25, y: e.realY - 25}, 350);
+  }
+});
+
+Crafty.c('Ping', {
+  init: function() {
+    this.requires('2D, Canvas, Color, DOM, Shape, Tween');
+    this.bind('TweenEnd', this.cleanup);
+  },
+
+  cleanup: function() {
+    this.destroy();
   }
 });
