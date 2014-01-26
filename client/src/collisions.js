@@ -408,6 +408,7 @@ Crafty.c("Treasure", {
         .collision().onHit("Actor", function(e){
           hero.heal(10);
           this.destroy();
+	  Crafty.audio.play('potion');
         });
   }
 });
@@ -450,7 +451,7 @@ Crafty.c("Monster", {
 				hero.damage(20);
 				this.visible = false;
 				this.active = false;
-
+			        Crafty.audio.play("enemy_dead");
 				this.unbind('EnterFrame', this.pathfinding);
 			}
         });
