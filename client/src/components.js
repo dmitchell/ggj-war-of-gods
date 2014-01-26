@@ -16,7 +16,6 @@ Crafty.c('Actor', {
 	health -= amount;
 	if(health <= 0){
 		// put game end code here
-		this.x += 200;
 	}
   }
 });
