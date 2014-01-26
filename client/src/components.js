@@ -98,3 +98,16 @@ Crafty.c('MoveTo', {
     Crafty.addEvent(this, Crafty.stage.elem, 'mousemove', this._onmousemove);
   }
 });
+
+Crafty.c('HasFOV', {
+  init: function() {
+    var fov = Crafty.e('2D, Canvas, Color, DOM, MoveTo, Shape')
+                    .color('rgba(255, 255, 255, 0.2)')
+                    .attr({z: 1, w: 200, h: 200})
+                    .css('border-radius','50%');
+    this.bind('EnterFrame', function() {
+      fov._x = this._x + this._w / 2 - fov._w / 2;
+      fov._y = this._y + this._h / 2 - fov._h / 2;
+    });
+  }
+});
