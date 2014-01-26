@@ -4,7 +4,7 @@ Game = {
     Crafty.init(1024, 636);
     Crafty.background('rgb(64, 64, 64)');
 
-    hero = Crafty.e('Actor, DOM, HasFOV, MoveTo')
+    hero = Crafty.e('Actor, DOM, HasFOV' + (role==='hero'?', MoveTo':'')
                  .attr({x: 500, y: 300, z: 2});
 
     treasure1 = Crafty.e('Treasure')
