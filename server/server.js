@@ -17,11 +17,15 @@ cloak.configure({
 	cloak.messageAll('world_state_receipt', msg);
     },
     move: function(msg, user) {
+	// for every object which changed location, the object's id and new locn
 	cloak.messageAll('move_receipt', msg);
     },
     combat_results: function(msg, user) {
+	// for every object which changed health, the object id and hp (0 == dead)
+	// god scores are hp
 	cloak.messageAll('combat_receipt', msg);
     },
+    
     exited: function(msg, user) {
 	cloak.messageAll('exited', msg);
     }

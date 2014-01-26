@@ -1,31 +1,35 @@
 var role;
-var state;
+var dungeon;
 
 function logResponse(response) {
     console.log(response);
-    $("#log").prepend(response + "<br/>");    
 }
 
 cloak.configure({
   messages: {
-    init: function(msg) {
-	console.log("sending init: " + msg);
-	logResponse("init: " + msg);
-    },
     init_response: function(someone_joined) {
-	console.log(someone_joined);
 	logResponse(someone_joined);
+	$("#log").append(someone_joined);
     },
     role: function(provided_role) {
+	console.log("Assigned to " + provided_role);
 	role = provided_role;
-	logResponse("Assigned to " + provided_role);
-    },
-    world_state_submission: function(state) {
-	// tell the server the world state--only from 'hero'
+	if (role === 'hero') {
+	    Game.start();
+	    // FIXME uncomment & when Dungeon finishes initializing it must call
+	    // cloak.message('world_state_submission', JSONversionOfWorld);
+	    dungeon = Crafty.e("Dungeon");
+	}
     },
     world_state_receipt: function(received_state) {
-	state = received_state;
 	logResponse("Received state: " + state);
+	$("#log").empty();
+	if (role !== 'hero') {
+	    // FIXME replace below using received_state which is the object sent from above
+	    // which the above sent
+	    Game.start();
+	    dungeon = Crafty.e("Dungeon");
+	}
     },
     move_receipt: function(move) {
 	// update state w/ the new info in move
@@ -35,6 +39,11 @@ cloak.configure({
     },
     exited: function(final_state) {
 	// tell the user the game is over and update final state
+    }
+  },
+  serverEvents: {
+    begin: function() {
+	cloak.message('init');
     }
   }
 });
