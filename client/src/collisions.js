@@ -454,6 +454,8 @@ Crafty.c("Exit", {
           if(hero.hasKey() && this.active){
 			Crafty.e("2D, Canvas, Text").attr({x: 400, y: 280 }).text("You win!")
 				.textColor('#FFFFFF"').textFont({size:'64px'});
+			this.active = false;
+			hero.clear();
 		  }
         });
 	this.active = true;

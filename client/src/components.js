@@ -135,6 +135,10 @@ Crafty.c('MoveTo', {
 });
 
 Crafty.c('HasFOV', {
+  clear: function() {
+	this._fov.visible = false;
+  },
+
   init: function() {
     console.log('mask created');
     this._fov = Crafty.e('Mask')
