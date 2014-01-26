@@ -9,3 +9,10 @@ Crafty.c("Treasure", {
         });
   }
 });
+
+Crafty.c("Wall", {
+  init: function() {
+    this.requires('2D, Canvas, Color');
+    this.color('rgb(128, 128, 128)');
+  }
+});

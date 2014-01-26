@@ -49,6 +49,8 @@ Crafty.c('MoveTo', {
   },
 
   _enterFrame: function() {
+	this.requires('Collision');
+  
     if (this.disableControls || !this._target) {
       return;
     }
@@ -80,8 +82,14 @@ Crafty.c('MoveTo', {
     // move triggered twice to allow for better collision logic
     this.x += movX;
     this.trigger('Moved', { x: oldX, y: this.y });
+	if(this.hit("Wall") != false){
+		this.x -= movX;
+	}
     this.y += movY;
     this.trigger('Moved', { x: this.x, y: oldY });
+	if(this.hit("Wall") != false){
+		this.y -= movY;
+	}
   },
 
   moveTo: function(speed) {
@@ -90,7 +98,7 @@ Crafty.c('MoveTo', {
   },
 
   init: function() {
-    this.requires('Mouse');
+    this.requires('Mouse, Collision');
     this.oldDirection = { x: 0, y: 0 };
 
     Crafty.addEvent(this, Crafty.stage.elem, 'mousedown', this._onmousedown);

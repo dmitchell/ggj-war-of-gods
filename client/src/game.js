@@ -16,5 +16,8 @@ Game = {
                      .attr({x: 200, y: 200});
     treasure4 = Crafty.e('Treasure, Color, Collision')
                      .attr({x: 200, y: 100});
+					 
+	wall = Crafty.e('Wall, Color')
+                     .attr({x: 300, y: 100, w: 100, h: 40});
   }
 };
