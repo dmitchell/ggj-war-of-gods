@@ -2,7 +2,7 @@ Game = {
   // initialize game
   start: function() {
     Crafty.init(1024, 636);
-    Crafty.background('rgb(0, 0, 0)');
+    Crafty.background('rgb(64, 64, 64)');
 
     hero = Crafty.e('Actor, Color, Collision, DOM, HasFOV, MoveTo')
                  .color('rgb(255, 0, 0)')

@@ -117,13 +117,31 @@ Crafty.c('MoveTo', {
 
 Crafty.c('HasFOV', {
   init: function() {
-    var fov = Crafty.e('2D, Canvas, Color, DOM, MoveTo, Shape')
-                    .color('rgba(255, 255, 255, 0.2)')
-                    .attr({z: 1, w: 200, h: 200})
-                    .css('border-radius','50%');
-    this.bind('EnterFrame', function() {
-      fov._x = this._x + this._w / 2 - fov._w / 2;
-      fov._y = this._y + this._h / 2 - fov._h / 2;
-    });
+    var fov = Crafty.e('Mask')
+                    .attr({x: 0, y: 0, z: 999, w: 1024, h: 636});
+  }
+});
+
+Crafty.c('Mask', {
+  drawMask: function(e) {
+    var maskCanvas = document.createElement('canvas');
+    maskCanvas.width = '1024';
+    maskCanvas.height = '636';
+    var maskCtx = maskCanvas.getContext('2d');
+    maskCtx.fillStyle = 'rgb(0,0,0)';
+    maskCtx.fillRect(0, 0, 1024, 636);
+
+    maskCtx.globalCompositeOperation = 'xor';
+    maskCtx.fillStyle = 'rgb(255, 255, 255)';
+    maskCtx.arc(hero._x + hero._w / 2, hero._y + hero._h / 2, 100, 0, 2 * Math.PI);
+    maskCtx.fill();
+
+    Crafty.canvas.context.drawImage(maskCanvas, 0, 0);
+  },
+
+  init: function() {
+    this.requires('2D, Canvas, MoveTo');
+    this.ready = true;
+    this.bind('Draw', this.drawMask);
   }
 });
