@@ -30,6 +30,5 @@ Game = {
 	monster6 = Crafty.e('Monster, Color, Collision')
                      .attr({x: 200, y: 400});
 	
-	dungeon = Crafty.e("Dungeon");
   }
 };
