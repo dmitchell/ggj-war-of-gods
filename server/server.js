@@ -1,5 +1,5 @@
 var cloak = require('cloak');
-var roles = ['hero','blue','red'];
+var roles = ['blue','red', 'hero'];
 var index = 0;
 
 cloak.configure({

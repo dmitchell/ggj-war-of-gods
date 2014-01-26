@@ -17,18 +17,22 @@ cloak.configure({
 	if (role === 'hero') {
 	    Game.start();
 	    // FIXME uncomment & when Dungeon finishes initializing it must call
-	    // cloak.message('world_state_submission', JSONversionOfWorld);
 	    dungeon = Crafty.e("Dungeon");
+		var jsonDungeon = dungeon.generateDungeon();
+	
+		dungeon.buildDungeon(jsonDungeon);
+		cloak.message('world_state_submission', jsonDungeon);
 	}
     },
     world_state_receipt: function(received_state) {
-	logResponse("Received state: " + state);
+	logResponse("Received state: " + received_state);
 	$("#log").empty();
 	if (role !== 'hero') {
 	    // FIXME replace below using received_state which is the object sent from above
 	    // which the above sent
 	    Game.start();
 	    dungeon = Crafty.e("Dungeon");
+		dungeon.buildDungeon(received_state);
 	}
     },
     move_receipt: function(move) {

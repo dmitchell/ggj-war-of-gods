@@ -133,36 +133,50 @@ Crafty.c("Dungeon", {
 	},
 	
 	buildDungeon: function(jsonDungeon) {
+    // outer border
+		wall = Crafty.e('Wall, Color')
+			.attr({x: -10, y: -13, w: 1200, h: 32});
+		wall = Crafty.e('Wall, Color')
+			.attr({x: -13, y: -10, w: 30, h: 720});
+		wall = Crafty.e('Wall, Color')
+			.attr({x: -10, y: 617, w: 1200, h: 32});
+		wall = Crafty.e('Wall, Color')
+			.attr({x: 1007, y:-10, w: 30, h: 720});
+	
 		for(var i = 0; i < 5; i++){
 			for(var j = 0; j < 5; j++){
 				var room = jsonDungeon.rooms[i][j];
 				
+        // intersections
 				if(i > 0 && j > 0){
-					wall = Crafty.e('Wall, Color')
-						.attr({x: i*200 - 50, y: j*120 - 10, w: 100, h: 20});
-					wall = Crafty.e('Wall, Color')
-						.attr({x: i*200 - 10, y: j*120 - 30, w: 20, h: 60});
-				}
+          wall = Crafty.e('Wall, Color')
+            .attr({x: i*204 - 70, y: j*126 - 13, w: 144, h: 32});
+          wall = Crafty.e('Wall, Color')
+            .attr({x: i*204 - 13, y: j*126 - 30, w: 30, h: 66});
+        }
 				
+        // walls over doorspaces
 				if(room.leftDoor == false && i > 0){
 					wall = Crafty.e('Wall, Color')
-						.attr({x: i*200 - 10, y: j*120 + 30, w: 20, h: 60});
+						.attr({x: i*204 - 70, y: j*126 + 53, w: 30, h: 60});
 				}
-				if(room.upDoor == false && j > 0){
-					wall = Crafty.e('Wall, Color')
-						.attr({x: i*200 + 50, y: j*120 - 10, w: 100, h: 20});
-				}
+				// if(room.upDoor == false && j > 0){
+				// 	wall = Crafty.e('Wall, Color')
+				// 		.attr({x: i*200 + 50, y: j*120 - 10, w: 100, h: 13});
+				// }
 			}
-			if(i > 0){
-				wall = Crafty.e('Wall, Color')
-					.attr({x: -50, y: i*120 - 10, w: 100, h: 20});
-				wall = Crafty.e('Wall, Color')
-					.attr({x: 950, y: i*120 - 10, w: 100, h: 20});
-				wall = Crafty.e('Wall, Color')
-					.attr({x: i*200 - 10, y: -30, w: 20, h: 60});
-				wall = Crafty.e('Wall, Color')
-					.attr({x: i*200 - 10, y: 570, w: 20, h: 60});
-			}
+
+      // edge walls (bottom-right)
+			// if(i > 0){
+			// 	wall = Crafty.e('Wall, Color')
+			// 		.attr({x: -50, y: i*120 - 10, w: 100, h: 13});
+			// 	wall = Crafty.e('Wall, Color')
+			// 		.attr({x: 950, y: i*120 - 10, w: 100, h: 13});
+			// 	wall = Crafty.e('Wall, Color')
+			// 		.attr({x: i*200 - 10, y: -30, w: 13, h: 60});
+			// 	wall = Crafty.e('Wall, Color')
+			// 		.attr({x: i*200 - 10, y: 570, w: 13, h: 60});
+			// }
 		}
 	},
 	
@@ -232,15 +246,6 @@ Crafty.c("Dungeon", {
 				}
 			}
 		}*/
-		
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: -10, w: 1200, h: 20});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: -10, w: 20, h: 720});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: 590, w: 1200, h: 20});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: 990, y:-10, w: 20, h: 720});
 		
 		var jsonDungeon = {
 			rooms: []
@@ -315,9 +320,8 @@ Crafty.c("Bar", {
 
 Crafty.c("Treasure", {
   init: function() {
-    this.requires('2D, Canvas, Color, Collision');
+    this.requires('2D, Canvas, Collision, potion_pic');
     this.attr({z: 0, w: 20, h: 20})
-        .color('rgb(255, 255, 0)')
         .collision().onHit("Actor", function(e){
           hero.heal(10);
           this.destroy();
@@ -327,9 +331,8 @@ Crafty.c("Treasure", {
 
 Crafty.c("Monster", {
   init: function() {
-    this.requires('2D, Canvas, Color, Collision');
+    this.requires('2D, Canvas, Collision');
     this.attr({z: 0, w: 40, h: 40})
-        .color('rgb(0, 0, 255)')
         .collision().onHit("Actor", function(e){
           hero.damage(20);
           this.destroy();
