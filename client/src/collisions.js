@@ -171,6 +171,14 @@ Crafty.c("Dungeon", {
 					Crafty.e('Treasure')
 						.attr({x: i*200 + 100, y: j*120 + 60});
 				}
+				if(room.key){
+					Crafty.e('Key')
+						.attr({x: i*200 + 100, y: j*120 + 60});
+				}
+				if(room.exit){
+					Crafty.e('Exit')
+						.attr({x: i*200 + 100, y: j*120 + 60});
+				}
 			}
 			if(i > 0){
 				wall = Crafty.e('Wall, Color')
@@ -263,6 +271,17 @@ Crafty.c("Dungeon", {
 			room.strongmonster = true;
 		}
 		
+			var i = Math.floor(Math.random()*5);
+			var j = Math.floor(Math.random()*5);
+			var room = this.rooms[i][j];
+			while(room.item || (i > 0 && i < 4) || (j > 0 && j < 4)){
+				i = Math.floor(Math.random()*5);
+				j = Math.floor(Math.random()*5);
+				var room = this.rooms[i][j];
+			}
+			room.item = true;
+			room.exit = true;
+		
 		for(var k = 0; k < 5; k++){
 			var i = Math.floor(Math.random()*5);
 			var j = Math.floor(Math.random()*5);
@@ -291,18 +310,6 @@ Crafty.c("Dungeon", {
 			
 			room.item = true;
 			room.key = true;
-		}
-		
-		for(var k = 0; k < 5; k++){
-			var i = Math.floor(Math.random()*5);
-			var j = Math.floor(Math.random()*5);
-			var room = this.rooms[i][j];
-			
-			if(!room.item){
-				room.item = true;
-				room.exit = true;
-				var room = this.rooms[i][j];
-			}
 		}
 
 		
@@ -413,10 +420,33 @@ Crafty.c("Bar", {
 Crafty.c("Treasure", {
   init: function() {
     this.requires('2D, Canvas, Collision, potion_pic');
-    this.attr({z: 0, w: 20, h: 20})
+    this.attr({z: 0})
         .collision().onHit("Actor", function(e){
           hero.heal(10);
           this.destroy();
+        });
+  }
+});
+
+Crafty.c("Key", {
+  init: function() {
+    this.requires('2D, Canvas, Collision, key_pic');
+    this.attr({z: 0})
+        .collision().onHit("Actor", function(e){
+          hero.getKey();
+          this.destroy();
+        });
+  }
+});
+
+Crafty.c("Exit", {
+  init: function() {
+    this.requires('2D, Canvas, Collision, key_pic');
+    this.attr({z: 0, w:10, h:10})
+        .collision().onHit("Actor", function(e){
+          if(hero.hasKey()){
+			console.log("You win!");
+		  }
         });
   }
 });
@@ -453,7 +483,7 @@ Crafty.c("Monster", {
   init: function() {
     this.requires('2D, Canvas, Collision');
 
-    this.attr({z: 0, w: 40, h: 40})
+    this.attr({z: 0})
         .collision().onHit("Actor", function(e){
 			if(this.active){
 				hero.damage(20);

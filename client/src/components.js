@@ -9,23 +9,33 @@ Crafty.sprite("assets//aJEpash.png",
 	      });
 Crafty.c('Actor', {
   init: function() {
-	health = 100;
+	this.health = 100;
+	
+	this.key = false;
   
     this.requires('2D, Canvas, Collision, hero_pic');
   },
   
   heal: function(amount) {
-	health += amount;
-	if(health > 100){
-		health = 100;
+	this.health += amount;
+	if(this.health > 100){
+		this.health = 100;
 	}
   },
   
   damage: function(amount) {
-	health -= amount;
-	if(health <= 0){
+	this.health -= amount;
+	if(this.health <= 0){
 		// put game end code here
 	}
+  },
+  
+  getKey: function() {
+	this.key = true;
+  },
+  
+  hasKey: function() {
+	return this.key;
   }
 });
 
