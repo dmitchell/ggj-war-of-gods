@@ -161,6 +161,16 @@ Crafty.c("Dungeon", {
 					wall = Crafty.e('Wall, Color')
 						.attr({x: i*200 + 50, y: j*120 - 10, w: 100, h: 20});
 				}
+				
+				if(room.weakMonster || room.strongMonster){
+					Crafty.e('Monster, ' + 
+						( role==='hero'? 'gray_monster_pic' : 'blue_monster_pic'))
+						.attr({x: i*200 + 100, y: j*120 + 60});
+				}
+				if(room.potion){
+					Crafty.e('Treasure')
+						.attr({x: i*200 + 100, y: j*120 + 60});
+				}
 			}
 			if(i > 0){
 				wall = Crafty.e('Wall, Color')
@@ -223,6 +233,79 @@ Crafty.c("Dungeon", {
 			}
 		}
 		
+		for(var k = 0; k < 15; k++){
+			var i = Math.floor(Math.random()*5);
+			var j = Math.floor(Math.random()*5);
+			var room = this.rooms[i][j];
+			
+			while(room.monster){
+				i = Math.floor(Math.random()*5);
+				j = Math.floor(Math.random()*5);
+				var room = this.rooms[i][j];
+			}
+			
+			room.monster = true;
+			room.weakmonster = true;
+		}
+		
+		for(var k = 0; k < 3; k++){
+			var i = Math.floor(Math.random()*5);
+			var j = Math.floor(Math.random()*5);
+			var room = this.rooms[i][j];
+			
+			while(room.monster){
+				i = Math.floor(Math.random()*5);
+				j = Math.floor(Math.random()*5);
+				var room = this.rooms[i][j];
+			}
+			
+			room.monster = true;
+			room.strongmonster = true;
+		}
+		
+		for(var k = 0; k < 5; k++){
+			var i = Math.floor(Math.random()*5);
+			var j = Math.floor(Math.random()*5);
+			var room = this.rooms[i][j];
+			
+			while(room.item){
+				i = Math.floor(Math.random()*5);
+				j = Math.floor(Math.random()*5);
+				var room = this.rooms[i][j];
+			}
+			
+			room.item = true;
+			room.potion = true;
+		}
+		
+		for(var k = 0; k < 2; k++){
+			var i = Math.floor(Math.random()*5);
+			var j = Math.floor(Math.random()*5);
+			var room = this.rooms[i][j];
+			
+			while(room.item){
+				i = Math.floor(Math.random()*5);
+				j = Math.floor(Math.random()*5);
+				var room = this.rooms[i][j];
+			}
+			
+			room.item = true;
+			room.key = true;
+		}
+		
+		for(var k = 0; k < 5; k++){
+			var i = Math.floor(Math.random()*5);
+			var j = Math.floor(Math.random()*5);
+			var room = this.rooms[i][j];
+			
+			if(!room.item){
+				room.item = true;
+				room.exit = true;
+				var room = this.rooms[i][j];
+			}
+		}
+
+		
 		/*for(var i = 0; i < 5; i++){
 			for(var j = 0; j < 5; j++){
 				var room = this.rooms[i][j];
@@ -255,7 +338,12 @@ Crafty.c("Dungeon", {
 					"leftDoor" : room.l,
 					"rightDoor" : room.r,
 					"upDoor" : room.u,
-					"downDoor" : room.d
+					"downDoor" : room.d,
+					"weakMonster" : room.weakmonster,
+					"strongMonster" : room.strongmonster,
+					"potion" : room.potion,
+					"key" : room.key,
+					"exit" : room.exit
 				});
 			}
 			jsonDungeon.rooms.push(row);
@@ -284,6 +372,15 @@ Crafty.c("Room", {
 		this.l = false;
 		this.r = false;
 		this.attached = false;
+		
+		this.monster = false;
+		this.weakMonster = false;
+		this.strongMonster = false;
+		
+		this.item = false;
+		this.potion = false;
+		this.key = false;
+		this.exit = false;
 		
 		this.uBar = Crafty.e("Bar");
 		this.uBar.myroom = this;
