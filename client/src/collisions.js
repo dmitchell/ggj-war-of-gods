@@ -447,10 +447,12 @@ Crafty.c("Exit", {
     this.requires('2D, Canvas, Collision, key_pic');
     this.attr({z: 0, w:10, h:10})
         .collision().onHit("Actor", function(e){
-          if(hero.hasKey()){
-			console.log("You win!");
+          if(hero.hasKey() && this.active){
+			Crafty.e("2D, Canvas, Text").attr({x: 400, y: 280 }).text("You win!")
+				.textColor('#FFFFFF"').textFont({size:'64px'});
 		  }
         });
+	this.active = true;
   }
 });
 
