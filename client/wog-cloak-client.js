@@ -16,10 +16,9 @@ cloak.configure({
 	role = provided_role;
 	if (role === 'hero') {
 	    Game.start();
-	    // FIXME uncomment & when Dungeon finishes initializing it must call
+
 	    dungeon = Crafty.e("Dungeon");
 		var jsonDungeon = dungeon.generateDungeon();
-	
 		dungeon.buildDungeon(jsonDungeon);
 		cloak.message('world_state_submission', jsonDungeon);
 	}
@@ -37,6 +36,7 @@ cloak.configure({
     },
     move_receipt: function(move) {
 	// update state w/ the new info in move
+	update_locations(move);
     },
     combat_receipt: function(state_update) {
 	// update state w/ the new info (primarily hp)
