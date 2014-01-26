@@ -10,6 +10,18 @@ Crafty.c("Treasure", {
   }
 });
 
+Crafty.c("Monster", {
+  init: function() {
+    this.requires('2D, Canvas, Color, Collision');
+    this.attr({z: 0, w: 40, h: 40})
+        .color('rgb(0, 0, 255)')
+        .collision().onHit("Actor", function(e){
+          hero.damage(20);
+          this.destroy();
+        });
+  }
+});
+
 Crafty.c("Wall", {
   init: function() {
     this.requires('2D, Canvas, Color');

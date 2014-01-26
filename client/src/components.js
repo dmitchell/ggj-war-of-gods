@@ -6,9 +6,17 @@ Crafty.c('Actor', {
   },
   
   heal: function(amount) {
-	health -= amount;
+	health += amount;
 	if(health > 100){
 		health = 100;
+	}
+  },
+  
+  damage: function(amount) {
+	health -= amount;
+	if(health <= 0){
+		// put game end code here
+		this.x += 200;
 	}
   }
 });
