@@ -176,7 +176,8 @@ Crafty.c("Dungeon", {
         
         if(room.weakMonster || room.strongMonster){
           Crafty.e('Monster, ' + 
-            ( role==='hero'? 'gray_monster_pic' : 'blue_monster_pic'))
+            ( role==='hero'? 'gray_monster_pic' : 
+	      ((room.weakMonster || room.strongMonster) === 'red' ? 'red_monster_pic' : 'blue_monster_pic')))
             .attr({x: i*200 + 100, y: j*120 + 60, z: 2});
         }
 				if(room.potion){
@@ -267,7 +268,7 @@ Crafty.c("Dungeon", {
 			}
 			
 			room.monster = true;
-			room.weakmonster = true;
+			room.weakMonster = ( Math.random() < 0.5 ? 'red' : 'blue');
 		}
 		
 		for(var k = 0; k < 3; k++){
@@ -281,8 +282,8 @@ Crafty.c("Dungeon", {
 				var room = this.rooms[i][j];
 			}
 			
-			room.monster = true;
-			room.strongmonster = true;
+			room.monster = true; 
+			room.strongMonster = ( Math.random() < 0.5 ? 'red' : 'blue');
 		}
 		
 			var i = Math.floor(Math.random()*5);
@@ -360,8 +361,8 @@ Crafty.c("Dungeon", {
 					"rightDoor" : room.r,
 					"upDoor" : room.u,
 					"downDoor" : room.d,
-					"weakMonster" : room.weakmonster,
-					"strongMonster" : room.strongmonster,
+					"weakMonster" : room.weakMonster,
+					"strongMonster" : room.strongMonster,
 					"potion" : room.potion,
 					"key" : room.key,
 					"exit" : room.exit
@@ -397,8 +398,8 @@ Crafty.c("Room", {
 		this.attached = false;
 		
 		this.monster = false;
-		this.weakmonster = false;
-		this.strongmonster = false;
+		this.weakMonster = false;
+		this.strongMonster = false;
 		
 		this.item = false;
 		this.potion = false;
