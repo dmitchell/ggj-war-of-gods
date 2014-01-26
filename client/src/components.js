@@ -7,6 +7,17 @@ Crafty.sprite("assets//aJEpash.png",
          potion_pic: [53, 152, 72-53, 31],
          helm_pic: [109, 148, 137-109, 33]
         });
+
+Crafty.audio.add({
+    background: ["assets/war_of_gods.mp3"],
+    door:  ["assets/door_2.mp3"],
+    lost:  ["assets/loser.mp3"],
+    won:  ["assets/victory.mp3"],
+    enemy_dead:  ["assets/enemy_destroyed.mp3"],
+    potion:  ["assets/treasure_2.mp3"]
+    
+});
+
 Crafty.c('Actor', {
 
   init: function() {

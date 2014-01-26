@@ -26,6 +26,7 @@ Game = {
     //Crafty.bind('EnterFrame', xmit_move);
 
     Crafty.background('url("assets/bg.png") 2px 3px');
+    Crafty.audio.play('background', -1, 1.0);
 
     hero = Crafty.e('Actor, DOM' + (role==='hero'?', HasFOV, MoveTo':''))
                  .attr({x: 500, y: 300, z: 2});
