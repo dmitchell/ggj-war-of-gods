@@ -158,9 +158,8 @@ Crafty.c("Dungeon", {
 		this.bars.push(this.startroom.rBar);
 		this.startroom.rBar.inList = true;
 
-		var count = 0;
 		//tear down these walls
-		while(this.bars.length > 0 && count < 10000){
+		while(this.bars.length > 0){
 			var randNum = Math.floor(Math.random()*this.bars.length);
 			var randBar = this.bars[randNum];
 			
@@ -179,7 +178,6 @@ Crafty.c("Dungeon", {
 					this.deleteBars(randBar);
 				}
 			}
-			count += 1;
 		}
 		
 		/*for(var i = 0; i < 5; i++){
@@ -200,6 +198,47 @@ Crafty.c("Dungeon", {
 				}
 			}
 		}*/
+		
+		wall = Crafty.e('Wall, Color')
+			.attr({x: -10, y: -10, w: 1200, h: 20});
+		wall = Crafty.e('Wall, Color')
+			.attr({x: -10, y: -10, w: 20, h: 720});
+		wall = Crafty.e('Wall, Color')
+			.attr({x: -10, y: 590, w: 1200, h: 20});
+		wall = Crafty.e('Wall, Color')
+			.attr({x: 990, y:-10, w: 20, h: 720});
+					
+		for(var i = 0; i < 5; i++){
+			for(var j = 0; j < 5; j++){
+				var room = this.rooms[i][j];
+				
+				if(i > 0 && j > 0){
+					wall = Crafty.e('Wall, Color')
+						.attr({x: i*200 - 50, y: j*120 - 10, w: 100, h: 20});
+					wall = Crafty.e('Wall, Color')
+						.attr({x: i*200 - 10, y: j*120 - 30, w: 20, h: 60});
+				}
+				
+				if(room.l == false && i > 0){
+					wall = Crafty.e('Wall, Color')
+						.attr({x: i*200 - 10, y: j*120 + 30, w: 20, h: 60});
+				}
+				if(room.u == false && j > 0){
+					wall = Crafty.e('Wall, Color')
+						.attr({x: i*200 + 50, y: j*120 - 10, w: 100, h: 20});
+				}
+			}
+			if(i > 0){
+				wall = Crafty.e('Wall, Color')
+					.attr({x: -50, y: i*120 - 10, w: 100, h: 20});
+				wall = Crafty.e('Wall, Color')
+					.attr({x: 950, y: i*120 - 10, w: 100, h: 20});
+				wall = Crafty.e('Wall, Color')
+					.attr({x: i*200 - 10, y: -30, w: 20, h: 60});
+				wall = Crafty.e('Wall, Color')
+					.attr({x: i*200 - 10, y: 570, w: 20, h: 60});
+			}
+		}
 	}
 });
 

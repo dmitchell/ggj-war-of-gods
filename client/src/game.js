@@ -17,9 +17,6 @@ Game = {
     treasure4 = Crafty.e('Treasure, Color, Collision')
                      .attr({x: 200, y: 100});
 
-	wall = Crafty.e('Wall, Color')
-                     .attr({x: 300, y: 100, w: 100, h: 40});
-
 	monster1 = Crafty.e('Monster, Color, Collision')
                      .attr({x: 300, y: 300});
 	monster2 = Crafty.e('Monster, Color, Collision')
