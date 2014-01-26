@@ -8,7 +8,7 @@ Game = {
                  .color('rgb(255, 0, 0)')
                  .attr({x: 500, y: 300, z: 2, w: 40, h: 40});
 
-    treasure1 = Crafty.e('Treasure, Color, Collision')
+    /*treasure1 = Crafty.e('Treasure, Color, Collision')
                      .attr({x: 100, y: 100});
     treasure2 = Crafty.e('Treasure, Color, Collision')
                      .attr({x: 100, y: 200});
@@ -28,8 +28,11 @@ Game = {
 	monster5 = Crafty.e('Monster, Color, Collision')
                      .attr({x: 400, y: 400});
 	monster6 = Crafty.e('Monster, Color, Collision')
-                     .attr({x: 200, y: 400});
+                     .attr({x: 200, y: 400});*/
 	
 	dungeon = Crafty.e("Dungeon");
+	jsonDungeon = dungeon.generateDungeon();
+	
+	dungeon.buildDungeon(jsonDungeon);
   }
 };

@@ -132,7 +132,41 @@ Crafty.c("Dungeon", {
 		}
 	},
 	
-	init: function() {
+	buildDungeon: function(jsonDungeon) {
+		for(var i = 0; i < 5; i++){
+			for(var j = 0; j < 5; j++){
+				var room = jsonDungeon.rooms[i][j];
+				
+				if(i > 0 && j > 0){
+					wall = Crafty.e('Wall, Color')
+						.attr({x: i*200 - 50, y: j*120 - 10, w: 100, h: 20});
+					wall = Crafty.e('Wall, Color')
+						.attr({x: i*200 - 10, y: j*120 - 30, w: 20, h: 60});
+				}
+				
+				if(room.leftDoor == false && i > 0){
+					wall = Crafty.e('Wall, Color')
+						.attr({x: i*200 - 10, y: j*120 + 30, w: 20, h: 60});
+				}
+				if(room.upDoor == false && j > 0){
+					wall = Crafty.e('Wall, Color')
+						.attr({x: i*200 + 50, y: j*120 - 10, w: 100, h: 20});
+				}
+			}
+			if(i > 0){
+				wall = Crafty.e('Wall, Color')
+					.attr({x: -50, y: i*120 - 10, w: 100, h: 20});
+				wall = Crafty.e('Wall, Color')
+					.attr({x: 950, y: i*120 - 10, w: 100, h: 20});
+				wall = Crafty.e('Wall, Color')
+					.attr({x: i*200 - 10, y: -30, w: 20, h: 60});
+				wall = Crafty.e('Wall, Color')
+					.attr({x: i*200 - 10, y: 570, w: 20, h: 60});
+			}
+		}
+	},
+	
+	generateDungeon: function() {
 		this.requires('2D, Canvas');
 		
 		this.bars = new Array(0);
@@ -207,38 +241,27 @@ Crafty.c("Dungeon", {
 			.attr({x: -10, y: 590, w: 1200, h: 20});
 		wall = Crafty.e('Wall, Color')
 			.attr({x: 990, y:-10, w: 20, h: 720});
-					
+		
+		var jsonDungeon = {
+			rooms: []
+		};
+		
 		for(var i = 0; i < 5; i++){
+			var row = new Array(0);
 			for(var j = 0; j < 5; j++){
 				var room = this.rooms[i][j];
 				
-				if(i > 0 && j > 0){
-					wall = Crafty.e('Wall, Color')
-						.attr({x: i*200 - 50, y: j*120 - 10, w: 100, h: 20});
-					wall = Crafty.e('Wall, Color')
-						.attr({x: i*200 - 10, y: j*120 - 30, w: 20, h: 60});
-				}
-				
-				if(room.l == false && i > 0){
-					wall = Crafty.e('Wall, Color')
-						.attr({x: i*200 - 10, y: j*120 + 30, w: 20, h: 60});
-				}
-				if(room.u == false && j > 0){
-					wall = Crafty.e('Wall, Color')
-						.attr({x: i*200 + 50, y: j*120 - 10, w: 100, h: 20});
-				}
+				row.push({
+					"leftDoor" : room.l,
+					"rightDoor" : room.r,
+					"upDoor" : room.u,
+					"downDoor" : room.d
+				});
 			}
-			if(i > 0){
-				wall = Crafty.e('Wall, Color')
-					.attr({x: -50, y: i*120 - 10, w: 100, h: 20});
-				wall = Crafty.e('Wall, Color')
-					.attr({x: 950, y: i*120 - 10, w: 100, h: 20});
-				wall = Crafty.e('Wall, Color')
-					.attr({x: i*200 - 10, y: -30, w: 20, h: 60});
-				wall = Crafty.e('Wall, Color')
-					.attr({x: i*200 - 10, y: 570, w: 20, h: 60});
-			}
+			jsonDungeon.rooms.push(row);
 		}
+		
+		return jsonDungeon;
 	}
 });
 
