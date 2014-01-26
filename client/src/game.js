@@ -7,7 +7,7 @@ Game = {
     hero = Crafty.e('Actor, Collision, DOM, HasFOV, MoveTo, hero_pic')
                  .attr({x: 500, y: 300, z: 2, w: 40, h: 40});
 
-    treasure1 = Crafty.e('Treasure, Collision, potion_pic')
+    /*treasure1 = Crafty.e('Treasure, Color, Collision')
                      .attr({x: 100, y: 100});
     treasure2 = Crafty.e('Treasure, Collision, potion_pic')
                      .attr({x: 100, y: 200});
@@ -35,5 +35,7 @@ Game = {
 			    ( role==='hero'? 'gray_monster_pic' : 'red_monster_pic'))
                      .attr({x: 200, y: 400});
 	
+	monster6 = Crafty.e('Monster, Color, Collision')
+                     .attr({x: 200, y: 400});*/
   }
 };
