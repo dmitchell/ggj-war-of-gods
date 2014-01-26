@@ -25,7 +25,7 @@ cloak.configure({
 	}
     },
     world_state_receipt: function(received_state) {
-	logResponse("Received state: " + state);
+	logResponse("Received state: " + received_state);
 	$("#log").empty();
 	if (role !== 'hero') {
 	    // FIXME replace below using received_state which is the object sent from above

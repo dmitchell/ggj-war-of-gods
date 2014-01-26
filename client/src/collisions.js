@@ -133,6 +133,15 @@ Crafty.c("Dungeon", {
 	},
 	
 	buildDungeon: function(jsonDungeon) {
+		wall = Crafty.e('Wall, Color')
+			.attr({x: -10, y: -10, w: 1200, h: 20});
+		wall = Crafty.e('Wall, Color')
+			.attr({x: -10, y: -10, w: 20, h: 720});
+		wall = Crafty.e('Wall, Color')
+			.attr({x: -10, y: 590, w: 1200, h: 20});
+		wall = Crafty.e('Wall, Color')
+			.attr({x: 990, y:-10, w: 20, h: 720});
+	
 		for(var i = 0; i < 5; i++){
 			for(var j = 0; j < 5; j++){
 				var room = jsonDungeon.rooms[i][j];
@@ -232,15 +241,6 @@ Crafty.c("Dungeon", {
 				}
 			}
 		}*/
-		
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: -10, w: 1200, h: 20});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: -10, w: 20, h: 720});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: 590, w: 1200, h: 20});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: 990, y:-10, w: 20, h: 720});
 		
 		var jsonDungeon = {
 			rooms: []
