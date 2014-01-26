@@ -135,20 +135,20 @@ Crafty.c("Dungeon", {
 	buildDungeon: function(jsonDungeon) {
     // outer border
 		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: -13, w: 1200, h: 32});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -13, y: -10, w: 30, h: 720});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: -10, y: 617, w: 1200, h: 32});
-		wall = Crafty.e('Wall, Color')
-			.attr({x: 1007, y:-10, w: 30, h: 720});
+      .attr({x: -10, y: -13, w: 1200, h: 32});
+    wall = Crafty.e('Wall, Color')
+      .attr({x: -13, y: -10, w: 30, h: 720});
+    wall = Crafty.e('Wall, Color')
+      .attr({x: -10, y: 617, w: 1200, h: 32});
+    wall = Crafty.e('Wall, Color')
+      .attr({x: 1007, y:-10, w: 30, h: 720});
 	
 		for(var i = 0; i < 5; i++){
 			for(var j = 0; j < 5; j++){
 				var room = jsonDungeon.rooms[i][j];
 				
         // intersections
-				if(i > 0 && j > 0){
+        if(i > 0 && j > 0){
           wall = Crafty.e('Wall, Color')
             .attr({x: i*204 - 70, y: j*126 - 13, w: 144, h: 32});
           wall = Crafty.e('Wall, Color')
@@ -156,10 +156,14 @@ Crafty.c("Dungeon", {
         }
 				
         // walls over doorspaces
-				if(room.leftDoor == false && i > 0){
-					wall = Crafty.e('Wall, Color')
-						.attr({x: i*204 - 70, y: j*126 + 53, w: 30, h: 60});
-				}
+        if(room.leftDoor == false && i > 0){
+          wall = Crafty.e('Wall, Color')
+            .attr({x: i*204 - 13, y: (j+1)*126 - 90, w: 30, h: 60});
+        }
+        if(room.upDoor == false && j > 0){
+         wall = Crafty.e('Wall, Color')
+           .attr({x: (i+1)*204 - 130, y: j*126 - 13, w: 60, h: 32});
+        }
 				
 				if(room.weakMonster || room.strongMonster){
 					Crafty.e('Monster, ' + 
@@ -180,17 +184,17 @@ Crafty.c("Dungeon", {
 				}
 			}
 
-      // edge walls (bottom-right)
-			// if(i > 0){
-			// 	wall = Crafty.e('Wall, Color')
-			// 		.attr({x: -50, y: i*120 - 10, w: 100, h: 13});
-			// 	wall = Crafty.e('Wall, Color')
-			// 		.attr({x: 950, y: i*120 - 10, w: 100, h: 13});
-			// 	wall = Crafty.e('Wall, Color')
-			// 		.attr({x: i*200 - 10, y: -30, w: 13, h: 60});
-			// 	wall = Crafty.e('Wall, Color')
-			// 		.attr({x: i*200 - 10, y: 570, w: 13, h: 60});
-			// }
+      // edge walls
+      if(i > 0){
+        wall = Crafty.e('Wall, Color')
+          .attr({x: -26, y: i*126 - 13, w: 100, h: 32});
+        wall = Crafty.e('Wall, Color')
+          .attr({x: 950, y: i*126 - 13, w: 100, h: 32});
+        wall = Crafty.e('Wall, Color')
+          .attr({x: i*204 - 13, y: -24, w: 30, h: 60});
+        wall = Crafty.e('Wall, Color')
+          .attr({x: i*204 - 13, y: 600, w: 30, h: 60});
+      }
 		}
 	},
 	
