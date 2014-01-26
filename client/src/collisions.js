@@ -326,14 +326,52 @@ Crafty.c("Treasure", {
 });
 
 Crafty.c("Monster", {
+  _isMoving: false,
+
+  _speed: 1.5,
+  
+  pathfinding: function() {
+	this.requires('Collision');
+
+    // movement calculated from location and target at every frame
+    var dx = hero.x + hero.w /2 - (this.x + this.w / 2),
+        dy = hero.y + hero.h /2  - (this.y + this.h / 2);
+    var oldX = (this.x + this.w / 2),
+        oldY = (this.y + this.h / 2);
+    var movX = (dx * this._speed) / (Math.sqrt(dx * dx + dy * dy)),
+        movY = (dy * this._speed) / (Math.sqrt(dx * dx + dy * dy));
+
+    // move triggered twice to allow for better collision logic
+    this.x += movX;
+    this.trigger('Moved', { x: oldX, y: this.y });
+	if(this.hit("Wall") != false){
+		this.x -= movX;
+	}
+    this.y += movY;
+    this.trigger('Moved', { x: this.x, y: oldY });
+	if(this.hit("Wall") != false){
+		this.y -= movY;
+	}
+  },
+
   init: function() {
-    this.requires('2D, Canvas, Color, Collision');
+    this.requires('2D, Canvas, Color, Collision, Mouse');
     this.attr({z: 0, w: 40, h: 40})
         .color('rgb(0, 0, 255)')
         .collision().onHit("Actor", function(e){
-          hero.damage(20);
-          this.destroy();
+			if(this.active){
+				hero.damage(20);
+				this.visible = false;
+				this.active = false;
+
+				this.unbind('EnterFrame', this.pathfinding);
+			}
         });
+	
+	this.active = true;
+	this.oldDirection = { x: 0, y: 0 };
+	
+	this.bind('EnterFrame', this.pathfinding);
   }
 });
 

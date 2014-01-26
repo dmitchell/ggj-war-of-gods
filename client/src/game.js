@@ -15,7 +15,7 @@ Game = {
     treasure3 = Crafty.e('Treasure, Color, Collision')
                      .attr({x: 200, y: 200});
     treasure4 = Crafty.e('Treasure, Color, Collision')
-                     .attr({x: 200, y: 100});
+                     .attr({x: 200, y: 100});*/
 
 	monster1 = Crafty.e('Monster, Color, Collision')
                      .attr({x: 300, y: 300});
@@ -28,6 +28,6 @@ Game = {
 	monster5 = Crafty.e('Monster, Color, Collision')
                      .attr({x: 400, y: 400});
 	monster6 = Crafty.e('Monster, Color, Collision')
-                     .attr({x: 200, y: 400});*/
+                     .attr({x: 200, y: 400});
   }
 };
