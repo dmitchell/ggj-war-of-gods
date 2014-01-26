@@ -525,6 +525,6 @@ Crafty.c("Monster", {
 Crafty.c("Wall", {
   init: function() {
     this.requires('2D, Canvas, Color');
-    this.color('rgb(128, 128, 128)');
+    this.color('rgba(128, 128, 128, 0)');
   }
 });
