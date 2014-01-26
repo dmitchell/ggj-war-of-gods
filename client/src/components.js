@@ -1,8 +1,17 @@
+Crafty.sprite("assets//aJEpash.png",
+	      {hero_pic:[200,121,18,32],
+	       blue_monster_pic: [222, 121, 33, 45],
+	       red_monster_pic: [257, 121, 290-257, 45],
+	       gray_monster_pic: [292, 121, 325-292, 45],
+	       key_pic: [75, 148, 106-75, 31],
+	       potion_pic: [53, 152, 72-53, 31],
+	       helm_pic: [109, 148, 137-109, 33]
+	      });
 Crafty.c('Actor', {
   init: function() {
 	health = 100;
   
-    this.requires('2D, Canvas');
+    this.requires('2D, Canvas, Collision, hero_pic');
   },
   
   heal: function(amount) {

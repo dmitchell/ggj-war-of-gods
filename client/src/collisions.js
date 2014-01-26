@@ -315,9 +315,8 @@ Crafty.c("Bar", {
 
 Crafty.c("Treasure", {
   init: function() {
-    this.requires('2D, Canvas, Color, Collision');
+    this.requires('2D, Canvas, Collision, potion_pic');
     this.attr({z: 0, w: 20, h: 20})
-        .color('rgb(255, 255, 0)')
         .collision().onHit("Actor", function(e){
           hero.heal(10);
           this.destroy();
@@ -355,9 +354,9 @@ Crafty.c("Monster", {
   },
 
   init: function() {
-    this.requires('2D, Canvas, Color, Collision, Mouse');
+    this.requires('2D, Canvas, Collision');
+
     this.attr({z: 0, w: 40, h: 40})
-        .color('rgb(0, 0, 255)')
         .collision().onHit("Actor", function(e){
 			if(this.active){
 				hero.damage(20);
