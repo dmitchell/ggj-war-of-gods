@@ -60,13 +60,25 @@ Crafty.c('MoveTo', {
 
   _speed: 2,
 
+  _direction: 1,
+
   _onmousedown: function(e) {
     if (this.disregardMouseInput) {
       return;
     }
 
-    this._isMoving = true;
     this._target = { x: e.realX, y: e.realY };
+
+    if (this._target.x < this.x && this._direction === 1) {
+      this.flip();
+      this._direction = -1;
+    }
+    else if (this._target.x > this.x && this._direction === -1) {
+      this.unflip();
+      this._direction = 1;
+    }
+
+    this._isMoving = true;
     this.bind('EnterFrame', this._enterFrame);
   },
 
@@ -80,6 +92,14 @@ Crafty.c('MoveTo', {
       this._stopMoving();
       this._isMoving = true;
       this._target = { x: e.realX, y: e.realY };
+      if (this._target.x < this.x && this._direction === 1) {
+        this.flip();
+        this._direction = -1;
+      }
+      else if (this._target.x > this.x && this._direction === -1) {
+        this.unflip();
+        this._direction = 1;
+      }
       this.bind('EnterFrame', this._enterFrame);
     }
   },

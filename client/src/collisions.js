@@ -476,6 +476,8 @@ Crafty.c("Monster", {
   _isMoving: false,
 
   _speed: 1.5,
+
+  _direction: -1,
   
   pathfinding: function() {
 	this.requires('Collision');
@@ -487,6 +489,15 @@ Crafty.c("Monster", {
         oldY = (this.y + this.h / 2);
     var movX = (dx * this._speed) / (Math.sqrt(dx * dx + dy * dy)),
         movY = (dy * this._speed) / (Math.sqrt(dx * dx + dy * dy));
+
+    if (movX > 0 && this._direction === 1) {
+      this.unflip();
+      this._direction = -1;
+    }
+    else if (movX < 0 && this._direction === -1) {
+      this.flip();
+      this._direction = 1;
+    }
 
     // move triggered twice to allow for better collision logic
     this.x += movX;
