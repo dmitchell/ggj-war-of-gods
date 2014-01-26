@@ -27,7 +27,7 @@ Game = {
 
     Crafty.background('url("assets/bg.png") 2px 3px');
 
-    hero = Crafty.e('Actor, DOM' + (role==='hero'?', MoveTo':''))
+    hero = Crafty.e('Actor, DOM' + (role==='hero'?', HasFOV, MoveTo':''))
                  .attr({x: 500, y: 300, z: 2});
 
     pingLayer = Crafty.e('PingLayer');
